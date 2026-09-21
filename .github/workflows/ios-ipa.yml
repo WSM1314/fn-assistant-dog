@@ -16,6 +16,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: 立刻把 entitlements 原件存到 RUNNER_TEMP
+        # 实测：工作区里 ios/FnDog.entitlements 会在 xcodegen/xcodebuild 之后变成空 <dict/>，
+        # 于是签名"成功"但 entitlements 为空，真机表现为 SecItemAdd -34018。这里在任何工具碰它之前先存一份。
+        run: |
+          set -euo pipefail
+          wc -c ios/FnDog.entitlements
+          shasum ios/FnDog.entitlements
+          cp ios/FnDog.entitlements "$RUNNER_TEMP/FnDog.entitlements"
+          echo "ENT_FILE=$RUNNER_TEMP/FnDog.entitlements" >> "$GITHUB_ENV"
+          plutil -lint "$RUNNER_TEMP/FnDog.entitlements"
+
       - name: Show toolchain
         run: sw_vers; xcodebuild -version; defaults read $(xcode-select -p)/../Info.plist CFBundleShortVersionString || true
 
@@ -54,28 +65,8 @@ jobs:
           APP=$(find dd/Build/Products/Release-iphoneos -maxdepth 1 -name "*.app" | head -1)
           BIN="$APP/$(/usr/libexec/PlistBuddy -c 'Print :CFBundleExecutable' "$APP/Info.plist")"
           echo "[checkpoint C / 签名步骤] 仓库那份 entitlements:"; wc -c FnDog.entitlements; shasum FnDog.entitlements
-          # 上游工具（xcodegen 或 xcodebuild 的 entitlements 处理）会把仓库里那份改写成空 <dict/>，
-          # 所以签名步骤自带一份，不再依赖被改写过的工作区文件。
-          ENT_FILE="$PWD/FnDog.signing.entitlements"
-          cat > "$ENT_FILE" <<'PLIST'
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-    <key>application-identifier</key>
-    <string>com.fnassistantdog.ios</string>
-    <key>get-task-allow</key>
-    <true/>
-    <key>com.apple.developer.team-identifier</key>
-    <string>TROLL00000</string>
-    <key>keychain-access-groups</key>
-    <array>
-        <string>com.fnassistantdog.ios</string>
-        <string>*</string>
-    </array>
-</dict>
-</plist>
-PLIST
+          ENT_FILE="${ENT_FILE:-$PWD/FnDog.signing.entitlements}"
+          echo "签名用 entitlements: $ENT_FILE"
           echo "app=$APP"
           echo "bin=$BIN"
           echo "ent_file=$ENT_FILE"
