@@ -50,23 +50,35 @@ jobs:
           set -euo pipefail
           APP=$(find dd/Build/Products/Release-iphoneos -maxdepth 1 -name "*.app" | head -1)
           BIN="$APP/$(/usr/libexec/PlistBuddy -c 'Print :CFBundleExecutable' "$APP/Info.plist")"
-          echo "app=$APP bin=$BIN signer=$SIGNER"
+          ENT_FILE="$PWD/FnDog.entitlements"
+          echo "app=$APP"
+          echo "bin=$BIN"
+          echo "ent_file=$ENT_FILE"
+          ls -la "$ENT_FILE"
+          plutil -lint "$ENT_FILE"
+          echo "--- entitlements 文件内容 ---"
+          cat "$ENT_FILE"
 
-          # 实测教训：ldid 读不到 entitlements 时会静默签成空 <dict/>，CI 仍是绿的，
-          # 真机上表现为 SecItemAdd -34018 (errSecMissingEntitlement)。所以签完必须读回来断言。
-          read_back() { ldid -e "$BIN" 2>/dev/null || codesign -d --entitlements :- "$APP" 2>/dev/null || true; }
-          ldid -SFnDog.entitlements "$BIN" || true
+          # 读回必须用 codesign -d：ldid -e 解不出 codesign 写的 DER entitlements 时会打印 <dict/>，
+          # 上一轮就是被这个假阴性误导（两条签名路都"看起来空"）。
+          read_back() {
+            codesign -d --entitlements :- "$BIN" 2>/dev/null \
+              || codesign -d --entitlements :- "$APP" 2>/dev/null \
+              || ldid -e "$BIN" 2>/dev/null || true
+          }
+          has_key() { [[ "$1" == *"keychain-access-groups"* ]]; }
+
+          ldid -S"$ENT_FILE" "$BIN" || echo "ldid 返回非零：$?"
           ENT="$(read_back)"
-          if ! printf '%s' "$ENT" | grep -q "keychain-access-groups"; then
-            echo "::warning::ldid 未注入 entitlements（读回=$(printf '%s' "$ENT" | tr -d '\n' | head -c 120)），改用 codesign ad-hoc"
-            codesign --force --sign - --entitlements FnDog.entitlements "$APP"
+          if ! has_key "$ENT"; then
+            echo "ldid 这条路没把 entitlements 注进去，改用 codesign ad-hoc（DER entitlements）"
+            codesign --force --sign - --timestamp=none --generate-entitlement-der \
+              --entitlements "$ENT_FILE" "$APP"
             ENT="$(read_back)"
           fi
           echo "=== 最终 entitlements（读回） ==="
           printf '%s\n' "$ENT"
-          printf '%s' "$ENT" | grep -q "keychain-access-groups" || {
-            echo "Error: entitlements 仍缺 keychain-access-groups，拒绝出包"; exit 1;
-          }
+          has_key "$ENT" || { echo "Error: entitlements 仍缺 keychain-access-groups，拒绝出包"; exit 1; }
           echo "=== Mach-O 架构与最小系统 ==="
           otool -l "$BIN" | grep -A4 -E "LC_BUILD_VERSION|LC_VERSION_MIN" | head -12
           file "$BIN"
