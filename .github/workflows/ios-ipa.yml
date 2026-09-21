@@ -1,0 +1,80 @@
+name: iOS IPA (TrollStore)
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "ios/**"
+      - ".github/workflows/ios-ipa.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  ipa:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Show toolchain
+        run: sw_vers; xcodebuild -version; defaults read $(xcode-select -p)/../Info.plist CFBundleShortVersionString || true
+
+      - name: Install xcodegen (+ ldid 尝试，失败则回落 codesign ad-hoc)
+        run: |
+          brew install xcodegen
+          if brew install ldid; then echo "SIGNER=ldid" >> "$GITHUB_ENV"; else echo "SIGNER=codesign" >> "$GITHUB_ENV"; fi
+
+      - name: Generate Xcode project
+        working-directory: ios
+        run: xcodegen generate --spec project.yml
+
+      - name: Build for iphoneos (unsigned)
+        working-directory: ios
+        run: |
+          set -euo pipefail
+          xcodebuild -project FnDog.xcodeproj -scheme FnDog -configuration Release \
+            -sdk iphoneos -destination 'generic/platform=iOS' \
+            -derivedDataPath dd \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+            ARCHS=arm64 ONLY_ACTIVE_ARCH=NO build
+
+      - name: Sign ad-hoc with entitlements and package IPA
+        working-directory: ios
+        run: |
+          set -euo pipefail
+          APP=$(find dd/Build/Products/Release-iphoneos -maxdepth 1 -name "*.app" | head -1)
+          BIN="$APP/$(/usr/libexec/PlistBuddy -c 'Print :CFBundleExecutable' "$APP/Info.plist")"
+          echo "app=$APP bin=$BIN signer=$SIGNER"
+          if [ "$SIGNER" = "ldid" ]; then
+            ldid -SFnDog.entitlements "$BIN"
+          else
+            codesign --force --sign - --entitlements FnDog.entitlements "$APP"
+          fi
+          echo "=== 签名与 entitlements 复核 ==="
+          codesign -d --entitlements :- "$APP" 2>&1 | head -20 || true
+          ldid -e "$BIN" 2>/dev/null | head -20 || true
+          echo "=== Mach-O 架构与最小系统 ==="
+          otool -l "$BIN" | grep -A4 -E "LC_BUILD_VERSION|LC_VERSION_MIN" | head -12
+          file "$BIN"
+          rm -rf payload FnDog-ios.ipa
+          mkdir payload && cp -R "$APP" payload/
+          (cd payload && zip -qry ../FnDog-ios.ipa .)
+          ls -la FnDog-ios.ipa
+          echo "IPA_PATH=ios/FnDog-ios.ipa" >> "$GITHUB_ENV"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: FnDog-ios-ipa
+          path: ios/FnDog-ios.ipa
+
+      - name: Publish on a release (公开直链，便于无鉴权下载)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          TAG="ios-$GITHUB_SHA"
+          gh release create "$TAG" --title "iOS IPA $GITHUB_SHA" \
+            --notes "TrollStore 管线验证产物：伪签名 ad-hoc + entitlements，无需开发者证书。下载后直接用 TrollStore 安装。" \
+            ios/FnDog-ios.ipa || gh release upload "$TAG" ios/FnDog-ios.ipa --clobber
+          echo "### 下载" >> "$GITHUB_STEP_SUMMARY"
+          echo "https://github.com/$GITHUB_REPOSITORY/releases/download/$TAG/FnDog-ios.ipa" >> "$GITHUB_STEP_SUMMARY"
