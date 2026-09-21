@@ -51,14 +51,22 @@ jobs:
           APP=$(find dd/Build/Products/Release-iphoneos -maxdepth 1 -name "*.app" | head -1)
           BIN="$APP/$(/usr/libexec/PlistBuddy -c 'Print :CFBundleExecutable' "$APP/Info.plist")"
           echo "app=$APP bin=$BIN signer=$SIGNER"
-          if [ "$SIGNER" = "ldid" ]; then
-            ldid -SFnDog.entitlements "$BIN"
-          else
+
+          # 实测教训：ldid 读不到 entitlements 时会静默签成空 <dict/>，CI 仍是绿的，
+          # 真机上表现为 SecItemAdd -34018 (errSecMissingEntitlement)。所以签完必须读回来断言。
+          read_back() { ldid -e "$BIN" 2>/dev/null || codesign -d --entitlements :- "$APP" 2>/dev/null || true; }
+          ldid -SFnDog.entitlements "$BIN" || true
+          ENT="$(read_back)"
+          if ! printf '%s' "$ENT" | grep -q "keychain-access-groups"; then
+            echo "::warning::ldid 未注入 entitlements（读回=$(printf '%s' "$ENT" | tr -d '\n' | head -c 120)），改用 codesign ad-hoc"
             codesign --force --sign - --entitlements FnDog.entitlements "$APP"
+            ENT="$(read_back)"
           fi
-          echo "=== 签名与 entitlements 复核 ==="
-          codesign -d --entitlements :- "$APP" 2>&1 | head -20 || true
-          ldid -e "$BIN" 2>/dev/null | head -20 || true
+          echo "=== 最终 entitlements（读回） ==="
+          printf '%s\n' "$ENT"
+          printf '%s' "$ENT" | grep -q "keychain-access-groups" || {
+            echo "Error: entitlements 仍缺 keychain-access-groups，拒绝出包"; exit 1;
+          }
           echo "=== Mach-O 架构与最小系统 ==="
           otool -l "$BIN" | grep -A4 -E "LC_BUILD_VERSION|LC_VERSION_MIN" | head -12
           file "$BIN"
