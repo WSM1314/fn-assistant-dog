@@ -13,7 +13,8 @@ struct FnDogProbeApp: App {
     }
 }
 
-private struct ProbeResult {
+private struct ProbeResult: Identifiable {
+    let id = UUID()
     var title: String
     var detail: String
     var ok: Bool
@@ -34,7 +35,7 @@ struct ProbeView: View {
                     if results.isEmpty {
                         Text("点右上「跑探针」").foregroundStyle(.secondary)
                     } else {
-                        ForEach(Array(results.enumerated), id: \.offset) { _, item in row(item) }
+                        ForEach(results) { item in row(item) }
                     }
                 }
             }
