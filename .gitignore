@@ -10,3 +10,9 @@ local.properties
 captures/
 .cxx/
 *.log
+
+# iOS / Xcode 产物
+ios/*.xcodeproj/
+ios/dd/
+ios/payload/
+*.ipa

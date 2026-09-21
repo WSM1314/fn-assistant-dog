@@ -36,7 +36,13 @@ jobs:
             -sdk iphoneos -destination 'generic/platform=iOS' \
             -derivedDataPath dd \
             CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
-            ARCHS=arm64 ONLY_ACTIVE_ARCH=NO build
+            ARCHS=arm64 ONLY_ACTIVE_ARCH=NO build 2>&1 | tee build.log
+
+      - name: 失败时直接打印编译错误（省一次日志下载）
+        if: failure()
+        working-directory: ios
+        run: |
+          grep -m 25 -E "error:|Build failed|not supported" build.log || tail -60 build.log || true
 
       - name: Sign ad-hoc with entitlements and package IPA
         working-directory: ios
