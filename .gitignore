@@ -16,3 +16,4 @@ ios/*.xcodeproj/
 ios/dd/
 ios/payload/
 *.ipa
+ios/Payload/

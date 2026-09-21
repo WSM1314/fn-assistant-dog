@@ -62,9 +62,11 @@ jobs:
           echo "=== Mach-O 架构与最小系统 ==="
           otool -l "$BIN" | grep -A4 -E "LC_BUILD_VERSION|LC_VERSION_MIN" | head -12
           file "$BIN"
-          rm -rf payload FnDog-ios.ipa
-          mkdir payload && cp -R "$APP" payload/
-          (cd payload && zip -qry ../FnDog-ios.ipa .)
+          rm -rf Payload FnDog-ios.ipa
+          mkdir Payload && cp -R "$APP" Payload/
+          # 必须从上级目录压 Payload 本身，条才会是 Payload/FnDog.app/...（iOS 安装器与 TrollStore 都要求这个结构）
+          zip -qry FnDog-ios.ipa Payload
+          unzip -l FnDog-ios.ipa | head -8
           ls -la FnDog-ios.ipa
           echo "IPA_PATH=ios/FnDog-ios.ipa" >> "$GITHUB_ENV"
 
