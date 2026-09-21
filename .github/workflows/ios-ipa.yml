@@ -26,7 +26,9 @@ jobs:
 
       - name: Generate Xcode project
         working-directory: ios
-        run: xcodegen generate --spec project.yml
+        run: |
+          xcodegen generate --spec project.yml
+          echo "[checkpoint A / xcodegen 之后] entitlements:"; wc -c FnDog.entitlements; shasum FnDog.entitlements; head -5 FnDog.entitlements
 
       - name: Build for iphoneos (unsigned)
         working-directory: ios
@@ -37,6 +39,7 @@ jobs:
             -derivedDataPath dd \
             CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
             ARCHS=arm64 ONLY_ACTIVE_ARCH=NO build 2>&1 | tee build.log
+          echo "[checkpoint B / xcodebuild 之后] entitlements:"; wc -c FnDog.entitlements; shasum FnDog.entitlements
 
       - name: 失败时直接打印编译错误（省一次日志下载）
         if: failure()
@@ -50,7 +53,29 @@ jobs:
           set -euo pipefail
           APP=$(find dd/Build/Products/Release-iphoneos -maxdepth 1 -name "*.app" | head -1)
           BIN="$APP/$(/usr/libexec/PlistBuddy -c 'Print :CFBundleExecutable' "$APP/Info.plist")"
-          ENT_FILE="$PWD/FnDog.entitlements"
+          echo "[checkpoint C / 签名步骤] 仓库那份 entitlements:"; wc -c FnDog.entitlements; shasum FnDog.entitlements
+          # 上游工具（xcodegen 或 xcodebuild 的 entitlements 处理）会把仓库里那份改写成空 <dict/>，
+          # 所以签名步骤自带一份，不再依赖被改写过的工作区文件。
+          ENT_FILE="$PWD/FnDog.signing.entitlements"
+          cat > "$ENT_FILE" <<'PLIST'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>application-identifier</key>
+	<string>com.fnassistantdog.ios</string>
+	<key>get-task-allow</key>
+	<true/>
+	<key>com.apple.developer.team-identifier</key>
+	<string>TROLL00000</string>
+	<key>keychain-access-groups</key>
+	<array>
+		<string>com.fnassistantdog.ios</string>
+		<string>*</string>
+	</array>
+</dict>
+</plist>
+PLIST
           echo "app=$APP"
           echo "bin=$BIN"
           echo "ent_file=$ENT_FILE"

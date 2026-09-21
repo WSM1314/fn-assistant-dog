@@ -17,3 +17,4 @@ ios/dd/
 ios/payload/
 *.ipa
 ios/Payload/
+ios/*.signing.entitlements
