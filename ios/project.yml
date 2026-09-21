@@ -16,8 +16,10 @@ targets:
     type: application
     platform: iOS
     sources: [Sources]
-    entitlements:
-      path: FnDog.entitlements
+    # 刻意不在这里声明 entitlements：XcodeGen 见到 entitlements.path 却没给 properties 时，
+    # 会按空 properties 重新生成并覆盖源文件（实测 494B → 181B 的 <dict/>），
+    # 于是签名"成功"但 entitlements 为空，真机表现为 SecItemAdd -34018。
+    # entitlements 由 CI 的签名步骤独占（FnDog.entitlements 原件在 checkout 后立刻存进 RUNNER_TEMP）。
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.fnassistantdog.ios
