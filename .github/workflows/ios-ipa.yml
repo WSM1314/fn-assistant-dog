@@ -62,17 +62,17 @@ jobs:
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>application-identifier</key>
-	<string>com.fnassistantdog.ios</string>
-	<key>get-task-allow</key>
-	<true/>
-	<key>com.apple.developer.team-identifier</key>
-	<string>TROLL00000</string>
-	<key>keychain-access-groups</key>
-	<array>
-		<string>com.fnassistantdog.ios</string>
-		<string>*</string>
-	</array>
+    <key>application-identifier</key>
+    <string>com.fnassistantdog.ios</string>
+    <key>get-task-allow</key>
+    <true/>
+    <key>com.apple.developer.team-identifier</key>
+    <string>TROLL00000</string>
+    <key>keychain-access-groups</key>
+    <array>
+        <string>com.fnassistantdog.ios</string>
+        <string>*</string>
+    </array>
 </dict>
 </plist>
 PLIST
