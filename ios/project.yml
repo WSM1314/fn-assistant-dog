@@ -1,0 +1,34 @@
+name: FnDog
+options:
+  bundleIdPrefix: com.fnassistantdog
+  deploymentTarget:
+    iOS: "16.0"          # 你的设备是 iOS 16.3，16.0 兼容
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    IPHONEOS_DEPLOYMENT_TARGET: "16.0"
+    ENABLE_USER_SCRIPT_SANDBOXING: "NO"
+
+targets:
+  FnDog:
+    type: application
+    platform: iOS
+    sources: [Sources]
+    entitlements:
+      path: FnDog.entitlements
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.fnassistantdog.ios
+        PRODUCT_NAME: FnDog            # 产物文件名保持 ASCII（壳路径友好），显示名用下面的 CFBundleDisplayName
+        GENERATE_INFOPLIST_FILE: "YES"
+        INFOPLIST_KEY_CFBundleDisplayName: FN助手狗
+        INFOPLIST_KEY_UILaunchScreen_Generation: "YES"
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: "YES"
+        # 云端无开发者证书：TrollStore 只要 ad-hoc/ldid 伪签名，构建阶段彻底关掉签名
+        CODE_SIGNING_ALLOWED: "NO"
+        CODE_SIGN_IDENTITY: ""
+        CODE_SIGN_STYLE: "Manual"
+        ARCHS: "arm64"
+        ONLY_ACTIVE_ARCH: "NO"

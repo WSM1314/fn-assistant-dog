@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Compose 自绘 UI，XML 主题只作启动壳；取深色父主题避免冷启动白闪 -->
+    <style name="Theme.FnDog" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/fn_bg</item>
+    </style>
+</resources>

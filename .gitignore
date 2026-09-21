@@ -1,0 +1,12 @@
+# 构建产物与本机环境，不入版本库
+.gradle/
+build/
+local.properties
+*.keystore
+*.jks
+.idea/
+*.iml
+.DS_Store
+captures/
+.cxx/
+*.log

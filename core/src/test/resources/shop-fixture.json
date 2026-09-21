@@ -1,0 +1,353 @@
+{
+ "status": 200,
+ "data": {
+  "hash": "e385ed06aa95fe1d",
+  "date": "2026-09-20T00:00:00Z",
+  "vbuckIcon": "https://fortnite-api.com/images/vbuck.png",
+  "entries": [
+   {
+    "regularPrice": 1500,
+    "finalPrice": 1000,
+    "devName": "[VIRTUAL]1 x Donald Duck TSUM, 1 x Mickey Mouse TSUM, 1 x Goofy TSUM for -1 MtxCurrency",
+    "offerId": "v2:/aa2413804209e886feb463bdff9bf4aa69da90d36e1b8054f7a7ec54f54dfc02",
+    "inDate": "2026-09-18T00:00:00Z",
+    "outDate": "2026-09-21T23:59:59.999Z",
+    "bundle": {
+     "name": "松松同捆包",
+     "info": "Bundle",
+     "image": "https://fortnite-api.com/images/cosmetics/br/newdisplayassets/34298da39a64b25e/renderimage_0.png"
+    },
+    "banner": {
+     "value": "立减500V币",
+     "intensity": "Low",
+     "backendValue": "AmountOff"
+    },
+    "giftable": true,
+    "refundable": false,
+    "sortPriority": -1,
+    "layoutId": "hugevillian.97",
+    "colors": {
+     "color1": "adc3e2ff",
+     "color3": "45638dff",
+     "textBackgroundColor": "45638dff"
+    },
+    "tileBackgroundMaterial": "ShopTile_Glitch",
+    "tileSize": "Size_1_x_1",
+    "displayAssetPath": "/OfferCatalog/DisplayAssets/DA_Featured_MonkeyPatentHowl_Bundle",
+    "newDisplayAssetPath": "/OfferCatalog/NewDisplayAssets/S39/DAv2_Bundle_Featured_MonkeyPatentHowl",
+    "newDisplayAsset": {
+     "id": "DAv2_Bundle_Featured_MonkeyPatentHowl",
+     "materialInstances": [],
+     "renderImages": [
+      {
+       "productTag": "Product.BR",
+       "fileName": "cosmo__34298da39a64b25e_0148e0489554edd0.png",
+       "image": "https://fortnite-api.com/images/cosmetics/br/newdisplayassets/34298da39a64b25e/renderimage_0.png"
+      }
+     ]
+    },
+    "brItems": [
+     {
+      "id": "Backpack_MonkeyPatentHowl",
+      "name": "唐老鸭松松",
+      "description": "可堆叠，容易炸毛。",
+      "type": {
+       "value": "backpack",
+       "displayValue": "背饰",
+       "backendValue": "AthenaBackpack"
+      },
+      "rarity": {
+       "value": "rare",
+       "displayValue": "稀有",
+       "backendValue": "EFortRarity::Rare"
+      },
+      "images": {
+       "smallIcon": "https://fortnite-api.com/images/cosmetics/br/backpack_monkeypatenthowl/smallicon.png",
+       "icon": "https://fortnite-api.com/images/cosmetics/br/backpack_monkeypatenthowl/icon.png",
+       "featured": "https://fortnite-api.com/images/cosmetics/br/backpack_monkeypatenthowl/featured.png"
+      }
+     },
+     {
+      "id": "Backpack_MonkeyPatentRipe",
+      "name": "米奇松松",
+      "description": "可堆叠，可爱乐天。",
+      "type": {
+       "value": "backpack",
+       "displayValue": "背饰",
+       "backendValue": "AthenaBackpack"
+      },
+      "rarity": {
+       "value": "rare",
+       "displayValue": "稀有",
+       "backendValue": "EFortRarity::Rare"
+      },
+      "images": {
+       "smallIcon": "https://fortnite-api.com/images/cosmetics/br/backpack_monkeypatentripe/smallicon.png",
+       "icon": "https://fortnite-api.com/images/cosmetics/br/backpack_monkeypatentripe/icon.png",
+       "featured": "https://fortnite-api.com/images/cosmetics/br/backpack_monkeypatentripe/featured.png"
+      }
+     },
+     {
+      "id": "Backpack_MonkeyPatentSeed",
+      "name": "高飞松松",
+      "description": "可堆叠，呆呆萌萌。",
+      "type": {
+       "value": "backpack",
+       "displayValue": "背饰",
+       "backendValue": "AthenaBackpack"
+      },
+      "rarity": {
+       "value": "rare",
+       "displayValue": "稀有",
+       "backendValue": "EFortRarity::Rare"
+      },
+      "images": {
+       "smallIcon": "https://fortnite-api.com/images/cosmetics/br/backpack_monkeypatentseed/smallicon.png",
+       "icon": "https://fortnite-api.com/images/cosmetics/br/backpack_monkeypatentseed/icon.png",
+       "featured": "https://fortnite-api.com/images/cosmetics/br/backpack_monkeypatentseed/featured.png"
+      }
+     }
+    ]
+   },
+   {
+    "regularPrice": 1500,
+    "finalPrice": 1000,
+    "devName": "[VIRTUAL]1 x Donald Duck TSUM, 1 x Mickey Mouse TSUM, 1 x Goofy TSUM for -1 MtxCurrency",
+    "offerId": "v2:/aa2413804209e886feb463bdff9bf4aa69da90d36e1b8054f7a7ec54f54dfc02",
+    "inDate": "2026-09-18T00:00:00Z",
+    "outDate": "2026-09-21T23:59:59.999Z",
+    "bundle": {
+     "name": "松松同捆包",
+     "info": "Bundle",
+     "image": "https://fortnite-api.com/images/cosmetics/br/newdisplayassets/34298da39a64b25e/renderimage_0.png"
+    },
+    "banner": {
+     "value": "立减500V币",
+     "intensity": "Low",
+     "backendValue": "AmountOff"
+    },
+    "giftable": true,
+    "refundable": false,
+    "sortPriority": -1,
+    "layoutId": "hugevillian.97",
+    "colors": {
+     "color1": "adc3e2ff",
+     "color3": "45638dff",
+     "textBackgroundColor": "45638dff"
+    },
+    "tileBackgroundMaterial": "ShopTile_Glitch",
+    "tileSize": "Size_1_x_1",
+    "displayAssetPath": "/OfferCatalog/DisplayAssets/DA_Featured_MonkeyPatentHowl_Bundle",
+    "newDisplayAssetPath": "/OfferCatalog/NewDisplayAssets/S39/DAv2_Bundle_Featured_MonkeyPatentHowl",
+    "newDisplayAsset": {
+     "id": "DAv2_Bundle_Featured_MonkeyPatentHowl",
+     "materialInstances": [],
+     "renderImages": [
+      {
+       "productTag": "Product.BR",
+       "fileName": "cosmo__34298da39a64b25e_0148e0489554edd0.png",
+       "image": "https://fortnite-api.com/images/cosmetics/br/newdisplayassets/34298da39a64b25e/renderimage_0.png"
+      }
+     ]
+    },
+    "brItems": [
+     {
+      "id": "Backpack_MonkeyPatentHowl",
+      "name": "唐老鸭松松",
+      "description": "可堆叠，容易炸毛。",
+      "type": {
+       "value": "backpack",
+       "displayValue": "背饰",
+       "backendValue": "AthenaBackpack"
+      },
+      "rarity": {
+       "value": "rare",
+       "displayValue": "稀有",
+       "backendValue": "EFortRarity::Rare"
+      },
+      "images": {
+       "smallIcon": "https://fortnite-api.com/images/cosmetics/br/backpack_monkeypatenthowl/smallicon.png",
+       "icon": "https://fortnite-api.com/images/cosmetics/br/backpack_monkeypatenthowl/icon.png",
+       "featured": "https://fortnite-api.com/images/cosmetics/br/backpack_monkeypatenthowl/featured.png"
+      }
+     },
+     {
+      "id": "Backpack_MonkeyPatentRipe",
+      "name": "米奇松松",
+      "description": "可堆叠，可爱乐天。",
+      "type": {
+       "value": "backpack",
+       "displayValue": "背饰",
+       "backendValue": "AthenaBackpack"
+      },
+      "rarity": {
+       "value": "rare",
+       "displayValue": "稀有",
+       "backendValue": "EFortRarity::Rare"
+      },
+      "images": {
+       "smallIcon": "https://fortnite-api.com/images/cosmetics/br/backpack_monkeypatentripe/smallicon.png",
+       "icon": "https://fortnite-api.com/images/cosmetics/br/backpack_monkeypatentripe/icon.png",
+       "featured": "https://fortnite-api.com/images/cosmetics/br/backpack_monkeypatentripe/featured.png"
+      }
+     },
+     {
+      "id": "Backpack_MonkeyPatentSeed",
+      "name": "高飞松松",
+      "description": "可堆叠，呆呆萌萌。",
+      "type": {
+       "value": "backpack",
+       "displayValue": "背饰",
+       "backendValue": "AthenaBackpack"
+      },
+      "rarity": {
+       "value": "rare",
+       "displayValue": "稀有",
+       "backendValue": "EFortRarity::Rare"
+      },
+      "images": {
+       "smallIcon": "https://fortnite-api.com/images/cosmetics/br/backpack_monkeypatentseed/smallicon.png",
+       "icon": "https://fortnite-api.com/images/cosmetics/br/backpack_monkeypatentseed/icon.png",
+       "featured": "https://fortnite-api.com/images/cosmetics/br/backpack_monkeypatentseed/featured.png"
+      }
+     }
+    ]
+   },
+   {
+    "regularPrice": 500,
+    "finalPrice": 500,
+    "devName": "[VIRTUAL]1 x Poker Face for 500 MtxCurrency",
+    "offerId": "v2:/0825ee2d879ee64ce2a7e363b8b87204b69601912173517a957cc36b3e8fa6a6",
+    "inDate": "2026-09-01T00:00:00Z",
+    "outDate": "2026-09-30T23:59:59.999Z",
+    "giftable": true,
+    "refundable": false,
+    "sortPriority": -40,
+    "layoutId": "JT091826.95",
+    "colors": {
+     "color1": "3a306cff",
+     "color3": "5e40ceff",
+     "textBackgroundColor": "694fc3ff"
+    },
+    "tileSize": "Size_1_x_1",
+    "newDisplayAssetPath": "sid_placeholder_78",
+    "tracks": [
+     {
+      "id": "sid_placeholder_78",
+      "devName": "pokerface",
+      "title": "Poker Face",
+      "artist": "Lady Gaga",
+      "releaseYear": 2008,
+      "bpm": 119,
+      "duration": 241,
+      "difficulty": {
+       "vocals": 2,
+       "guitar": 1,
+       "bass": 1,
+       "plasticBass": 2,
+       "drums": 1,
+       "plasticDrums": 0
+      },
+      "albumArt": "https://cdn.fortnite-api.com/tracks/c87588fd0a3ff8a9.jpg",
+      "added": "2024-02-22T10:58:10Z"
+     }
+    ],
+    "brItems": []
+   },
+   {
+    "regularPrice": 1200,
+    "finalPrice": 1200,
+    "devName": "[VIRTUAL]1 x Jellie, 1 x Shellie for -1 MtxCurrency",
+    "offerId": "v2:/ca5009e7eceb8c8c66989efb88bd33721a999acc13c4ea777dc766c01139f71d",
+    "inDate": "2026-09-15T00:00:00Z",
+    "outDate": "2026-09-21T23:59:59.999Z",
+    "giftable": true,
+    "refundable": false,
+    "sortPriority": -6,
+    "layoutId": "BR092026.95",
+    "colors": {
+     "color1": "586167ff",
+     "color2": "1a1d22ff",
+     "color3": "bcd9f5ff",
+     "textBackgroundColor": "222222ff"
+    },
+    "tileBackgroundMaterial": "ShopTile_AngleGradient_A",
+    "tileSize": "Size_1_x_1",
+    "displayAssetPath": "/OfferCatalog/DisplayAssets/DA_Featured_CID_664_Athena_Commando_M_Gummi",
+    "newDisplayAssetPath": "/OfferCatalog/NewDisplayAssets/DAv2_CID_664_M_Gummi",
+    "newDisplayAsset": {
+     "id": "DAv2_CID_664_M_Gummi",
+     "materialInstances": [],
+     "renderImages": [
+      {
+       "productTag": "Product.BR",
+       "fileName": "cosmo__e247d1d64bfd6813_30145235ca951faf.png",
+       "image": "https://fortnite-api.com/images/cosmetics/br/newdisplayassets/e247d1d64bfd6813/renderimage_0.png"
+      },
+      {
+       "productTag": "Product.BR",
+       "fileName": "cosmo__e247d1d64bfd6813_626ecf7c8b8b7ac1.png",
+       "image": "https://fortnite-api.com/images/cosmetics/br/newdisplayassets/e247d1d64bfd6813/renderimage_1.png"
+      },
+      {
+       "productTag": "Product.Juno",
+       "fileName": "cosmo__e247d1d64bfd6813_9ad2d5edd50227d3.png",
+       "image": "https://fortnite-api.com/images/cosmetics/br/newdisplayassets/e247d1d64bfd6813/renderimage_2.png"
+      }
+     ]
+    },
+    "brItems": [
+     {
+      "id": "CID_664_Athena_Commando_M_Gummi",
+      "name": "杰利",
+      "description": "你不想与之为敌的海葵。 ",
+      "type": {
+       "value": "outfit",
+       "displayValue": "皮肤",
+       "backendValue": "AthenaCharacter"
+      },
+      "rarity": {
+       "value": "rare",
+       "displayValue": "稀有",
+       "backendValue": "EFortRarity::Rare"
+      },
+      "images": {
+       "smallIcon": "https://fortnite-api.com/images/cosmetics/br/cid_664_athena_commando_m_gummi/smallicon.png",
+       "icon": "https://fortnite-api.com/images/cosmetics/br/cid_664_athena_commando_m_gummi/icon.png",
+       "featured": "https://fortnite-api.com/images/cosmetics/br/cid_664_athena_commando_m_gummi/featured.png",
+       "lego": {
+        "small": "https://fortnite-api.com/images/cosmetics/lego/cid_664_athena_commando_m_gummi/small.png",
+        "large": "https://fortnite-api.com/images/cosmetics/lego/cid_664_athena_commando_m_gummi/large.png",
+        "wide": "https://fortnite-api.com/images/cosmetics/lego/cid_664_athena_commando_m_gummi/wide.png"
+       },
+       "bean": {
+        "small": "https://fortnite-api.com/images/cosmetics/beans/bean_gummi/small.png",
+        "large": "https://fortnite-api.com/images/cosmetics/beans/bean_gummi/large.png"
+       }
+      }
+     },
+     {
+      "id": "BID_454_Gummi",
+      "name": "盾甲",
+      "description": "打破它？想都别想。 ",
+      "type": {
+       "value": "backpack",
+       "displayValue": "背饰",
+       "backendValue": "AthenaBackpack"
+      },
+      "rarity": {
+       "value": "rare",
+       "displayValue": "稀有",
+       "backendValue": "EFortRarity::Rare"
+      },
+      "images": {
+       "smallIcon": "https://fortnite-api.com/images/cosmetics/br/bid_454_gummi/smallicon.png",
+       "icon": "https://fortnite-api.com/images/cosmetics/br/bid_454_gummi/icon.png",
+       "featured": "https://fortnite-api.com/images/cosmetics/br/bid_454_gummi/featured.png"
+      }
+     }
+    ]
+   }
+  ]
+ }
+}

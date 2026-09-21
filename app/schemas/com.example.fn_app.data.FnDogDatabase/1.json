@@ -1,0 +1,88 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "ccdc2d9cacafcf23652bbb130456c38a",
+    "entities": [
+      {
+        "tableName": "accounts",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`accountId` TEXT NOT NULL, `displayName` TEXT NOT NULL, `encryptedCredentials` BLOB NOT NULL, `accountStatus` TEXT NOT NULL, `accessTokenExpiresAt` INTEGER NOT NULL, `refreshTokenExpiresAt` INTEGER, `lastRefreshAt` INTEGER NOT NULL, `lastError` TEXT, `vbucksBalance` INTEGER, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, PRIMARY KEY(`accountId`))",
+        "fields": [
+          {
+            "fieldPath": "accountId",
+            "columnName": "accountId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "displayName",
+            "columnName": "displayName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "encryptedCredentials",
+            "columnName": "encryptedCredentials",
+            "affinity": "BLOB",
+            "notNull": true
+          },
+          {
+            "fieldPath": "accountStatus",
+            "columnName": "accountStatus",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "accessTokenExpiresAt",
+            "columnName": "accessTokenExpiresAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "refreshTokenExpiresAt",
+            "columnName": "refreshTokenExpiresAt",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "lastRefreshAt",
+            "columnName": "lastRefreshAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastError",
+            "columnName": "lastError",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "vbucksBalance",
+            "columnName": "vbucksBalance",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updatedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "accountId"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ccdc2d9cacafcf23652bbb130456c38a')"
+    ]
+  }
+}
