@@ -23,6 +23,9 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.fnassistantdog.ios
         PRODUCT_NAME: FnDog            # 产物文件名保持 ASCII（壳路径友好），显示名用下面的 CFBundleDisplayName
         GENERATE_INFOPLIST_FILE: "YES"
+        # GENERATE_INFOPLIST_FILE 下这两个不写就等于 Info.plist 里没有版本键（探针里显示 "? (?)"）
+        MARKETING_VERSION: "0.1.0"
+        CURRENT_PROJECT_VERSION: "1"
         INFOPLIST_KEY_CFBundleDisplayName: FN助手狗
         INFOPLIST_KEY_UILaunchScreen_Generation: "YES"
         INFOPLIST_KEY_UIApplicationSceneManifest_Generation: "YES"

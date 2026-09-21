@@ -4,6 +4,10 @@
   TrollStore 用最小 entitlements：不声明 platform-application（非平台二进制），
   get-task-allow 打开即可被 ad-hoc/ldid 伪签名安装。iOS 16.3 在 TrollStore 2
   支持的 15.0–16.6.1 区间内，走的是 CoreTrust 绕过，不需要任何开发者证书。
+
+  keychain-access-groups 是实测补上的：缺它时 SecItemAdd 返回 -34018
+  (errSecMissingEntitlement)。这里必须写实际值而不是 $(AppIdentifierPrefix) ——
+  那个变量只有 Xcode 的 codesign 阶段会替换，我们用的是 ldid 直接签名，不替换。
 -->
 <plist version="1.0">
 <dict>
@@ -13,5 +17,10 @@
 	<true/>
 	<key>com.apple.developer.team-identifier</key>
 	<string>TROLL00000</string>
+	<key>keychain-access-groups</key>
+	<array>
+		<string>*</string>
+		<string>com.fnassistantdog.ios</string>
+	</array>
 </dict>
 </plist>
